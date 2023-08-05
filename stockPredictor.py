@@ -3,7 +3,7 @@ from sklearn.linear_model import Ridge
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from stockPuller import *
+from stockPuller import stockPuller
 
 class stockPredictor:
     def __init__(self, ticker = None) -> None:
@@ -33,7 +33,7 @@ class stockPredictor:
 
     def priceOutput(self):
         ticker = self.ticker
-        data, stockTicker = stockPuller.history(ticker) # Returns pandas dataframe
+        data, stockTicker = stockPuller.main_puller(ticker) # Returns pandas dataframe
         X,y,features = stockPuller.dataProcessor(data) # Returns X_train,y_train, and the features to be used
         model = self.trainModel(X,y)
         futurePrice, currentPrice = self.pricePredictor(data, features, model)
